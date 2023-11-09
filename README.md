@@ -43,7 +43,7 @@ await aiService.CreateThread();
 await aiService.SendMsgToThread("msg","user");
 
 // Start the run operation
- wait aiService.RunAssistant();
+await aiService.RunAssistant();
 
 // Finally get the response from the assistant
 var response = await aiService.GetResponseFromAssistant();
