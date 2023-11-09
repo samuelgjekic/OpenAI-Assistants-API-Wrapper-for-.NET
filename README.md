@@ -1,11 +1,20 @@
 # OpenAi_Assistant
 
-https://platform.openai.com/docs/assistants/overview
 Dotnet SDK for OpenAI Assistants API (Currently Beta)
 _Unofficial._
 _OpenAI doesn't have any official .Net SDK._
 
+Link to the OpenAI Assistant page:
+https://platform.openai.com/docs/assistants/overview
 
+**Install package:**
+```
+dotnet add package OpenAi_Assistant --version 1.0.1
+``` 
+
+```
+NuGet\Install-Package OpenAi_Assistant -Version 1.0.1
+``` 
 
 ### Information
 Last week the new OpenAI Assistant API became available, i started testing it out and this is the SDK i created for it. 
@@ -27,20 +36,22 @@ var aiService = new OpenAiAssistantService("YOUR-API-KEY");
 var assistant = await aiService.CreateAssistant(OpenAiModel.Gpt_3_5_Turbo,"Math tutor", ToolsModel.Code_Interpreter,"You are a math tutor");
 
 // Create the thread that the assistant will run on
-var thread =  await aiService.CreateThread();
+await aiService.CreateThread();
 
 
 // Send a new message to the thread with the user role.
-var newMsg = await aiService.SendMsgToThread("msg","user");
+await aiService.SendMsgToThread("msg","user");
 
 // Start the run operation
- var run = await aiService.RunAssistant();
+ wait aiService.RunAssistant();
 
 // Finally get the response from the assistant
 var response = await aiService.GetResponseFromAssistant();
 
 Console.WriteLine(response);
 
+// You should dispose of the aiService when you are no longer using it.
+aiService.Dispose();
 
 ``` 
 Each object returns an error message if it fails.
@@ -72,7 +83,9 @@ public class OpenAiModel
 
 }
 ``` 
-
+### Changelog 1.0.1
+- Added _IDisposable_ to _OpenAiService_
+- Fixed sending parameters with the assistant
 
 ### ToDo
 
