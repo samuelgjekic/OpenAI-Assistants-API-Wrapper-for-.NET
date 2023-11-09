@@ -14,11 +14,8 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>open ai, ai assistant, chatgpt ,wrapper, open ai assistant</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <AssemblyVersion>1.0.1.1</AssemblyVersion>
-    <FileVersion>1.0.1.1</FileVersion>
-    <PackageReleaseNotes>Fixed bug where assistant did not recieve correct parameters.</PackageReleaseNotes>
-    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    <Version>1.0.1</Version>
+    <AssemblyVersion>1.0.0.1</AssemblyVersion>
+    <FileVersion>1.0.0.1</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>

@@ -37,11 +37,9 @@ namespace OpenAi_Assistant.Services
         }
 
   
-        public async Task<string> CreateAssistant(string apimodel,string name,string tool, string instructions) 
+        public async Task<string> CreateAssistant(string apimodel,string Name,string tool, string Instructions) 
         {
-            instructions = "You are a personal math tutor. Write and run code to answer math questions.";
-            name = "Mattematikern";
-            tool = "code_interpreter";
+            
             /// <summary>
             ///     Creates the ai assistant with the given parameters.
             /// </summary>
@@ -51,8 +49,8 @@ namespace OpenAi_Assistant.Services
                 var requestUri = "https://api.openai.com/v1/assistants";
                 var requestBody = new
                 {
-                    name = name,
-                    instructions = instructions,
+                    name = Name,
+                    instructions = Instructions,
                     tools = new[] { new { type = tool } },
                     model = apimodel
                 };
