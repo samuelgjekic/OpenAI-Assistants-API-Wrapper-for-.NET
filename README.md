@@ -64,13 +64,12 @@ Console.WriteLine(response);
 // You should dispose of the aiService when you are no longer using it.
 aiService.Dispose();
 
-**_New in 1.0.2:_**
+
 // You can now retrieve assistant properties because the CreateAssistant method now returns the assistant object.
 // Example:
 var assistant_id = assistant.id;
 
 ``` 
-Each object returns an error message if it fails.
 
 
 **For now you can access chatGPT3 turbo and chatGPT4 in the OpenAiModel class:**
