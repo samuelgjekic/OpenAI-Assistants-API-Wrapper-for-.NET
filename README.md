@@ -78,11 +78,16 @@ aiService.Dispose();
 var assistant_id = assistant.id;
 
 
-// Modify existing assistant
-aiService.assistant.ModifyAssistant(assistant);
+// To modify existing assistant, change the values of the assistant object
+assistant.name = "new name";
+assistant.instructions = "new instructions";
+
+// After changing the assistant object you will have to confirm the changes by calling the API to modify the assistant.
+// This will send the modified assistant object and update the assistant in the thread.
+assistant = aiService.assistant.ModifyAssistant(assistant);
 
 // Delete existing assistant
-aiService.assistant.DeleteAssistant(assistant);
+assistant = aiService.assistant.DeleteAssistant(assistant);
 
 ``` 
 
