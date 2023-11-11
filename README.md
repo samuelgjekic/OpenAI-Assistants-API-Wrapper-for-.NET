@@ -9,11 +9,11 @@ https://platform.openai.com/docs/assistants/overview
 
 **Install package:**
 ```
-dotnet add package OpenAi_Assistant --version 1.0.2
+dotnet add package OpenAi_Assistant --version 1.0.3
 ``` 
 
 ```
-NuGet\Install-Package OpenAi_Assistant -Version 1.0.2
+NuGet\Install-Package OpenAi_Assistant -Version 1.0.3
 ``` 
 
 ### Information
@@ -21,6 +21,14 @@ Last week the new OpenAI Assistant API became available, i started testing it ou
 Keep in mind the API is still in beta, and this wrapper is far from finished.
 
 - **Accepting Contributions**: I welcome contributions from the community to enhance and expand the functionality of this wrapper. Whether you want to add new features, improve existing code, or fix bugs, your contributions are highly appreciated!
+
+
+### Changelog 1.0.3
+```
+- Added methods to modify or delete existing assistant
+- Fixed some code issues
+
+``` 
 
 ### Changelog 1.0.2
 
@@ -68,6 +76,13 @@ aiService.Dispose();
 // You can now retrieve assistant properties because the CreateAssistant method now returns the assistant object.
 // Example:
 var assistant_id = assistant.id;
+
+
+// Modify existing assistant
+aiService.assistant.ModifyAssistant(assistant);
+
+// Delete existing assistant
+aiService.assistant.DeleteAssistant(assistant);
 
 ``` 
 
