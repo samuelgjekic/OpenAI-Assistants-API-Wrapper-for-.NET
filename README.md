@@ -1,4 +1,4 @@
-# OpenAi_Assistant
+# OpenAi_Assistant .NET API WRAPPER
 
 Dotnet SDK for OpenAI Assistants API (Currently Beta)
 _Unofficial._
