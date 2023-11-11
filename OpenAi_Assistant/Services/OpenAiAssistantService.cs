@@ -3,6 +3,7 @@ using OpenAi_Assistant.Models;
 using System.Text;
 using OpenAi_Assistant.Interfaces;
 using OpenAi_Assistant.OpenAiAssistant.Services;
+using System.Xml.Linq;
 
 namespace OpenAi_Assistant.Services
 {
@@ -17,7 +18,7 @@ namespace OpenAi_Assistant.Services
         private string apiKey { get; set; }
         private readonly HttpClient httpClient;
         private readonly bool _disposeHttpClient; // <<<<< needs to be implemented.
-        private string assistantId { get; set; } // the id of the assistant
+        public AssistantModel assistant { get; set; } // the id of the assistant
    
 
         public OpenAiAssistantService(string ApiKey)
@@ -37,43 +38,24 @@ namespace OpenAi_Assistant.Services
         }
 
   
-        public async Task<string> CreateAssistant(string apimodel,string Name,string tool, string Instructions) 
+        public async Task<AssistantModel> CreateAssistant(string apimodel,string name,string tool, string instructions) 
         {
-            
+
             /// <summary>
             ///     Creates the ai assistant with the given parameters.
             /// </summary>
             /// 
-            try
+            assistant = new AssistantModel()
             {
-                var requestUri = "https://api.openai.com/v1/assistants";
-                var requestBody = new
-                {
-                    name = Name,
-                    instructions = Instructions,
-                    tools = new[] { new { type = tool } },
-                    model = apimodel
-                };
+                name = name,
+                tool = tool,
+                instructions = instructions,
+                apimodel = apimodel,
 
-                var response = await httpClient.PostAsync(requestUri, new StringContent(JsonConvert.SerializeObject(requestBody), Encoding.UTF8, "application/json"));
-                var responseContent = await response.Content.ReadAsStringAsync();
-                var responseObject = JsonConvert.DeserializeObject<dynamic>(responseContent);
-                if (response.IsSuccessStatusCode)
-                {
-                    // Parse the response to get the thread ID
-                    assistantId = responseObject?.id;
-
-                } else
-                {
-                    return "Assistant creation request was not successful... ";
-                }
-                
-                return responseContent ;
-
-            } catch (Exception CreateAssistantException)
-            {
-                return CreateAssistantException.Message;
-            }
+            };
+            AssistantService assistantService = new AssistantService(httpClient);
+            assistant = await assistantService.CreateAssistant(assistant);
+            return assistant;
         }
 
         /// <summary>
@@ -115,7 +97,7 @@ namespace OpenAi_Assistant.Services
             try
             {
                 RunService runService = new RunService(httpClient);
-                var response = await runService.CreateRun(currentThread, assistantId); // Run the assistant with given thread & assistant id.
+                var response = await runService.CreateRun(currentThread, assistant.id); // Run the assistant with given thread & assistant id.
                 if (response == true)
                 {
                     return "Successfully completed run operation.";
