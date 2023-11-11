@@ -22,6 +22,17 @@ Keep in mind the API is still in beta, and this wrapper is far from finished.
 
 - **Accepting Contributions**: I welcome contributions from the community to enhance and expand the functionality of this wrapper. Whether you want to add new features, improve existing code, or fix bugs, your contributions are highly appreciated!
 
+### Changelog 1.0.2
+
+```
+- Added AssistantService to handle interactions with the OpenAI Assistants API.
+- Introduced AssistantModel object to represent the properties of an assistant.
+- Implemented IRunService interface to define the necessary functionalities for running the assistant.
+- Updated the Assistant object to include relevant properties obtained when creating the assistant through the OpenAI Assistants API, such as ID and Name.
+
+These changes enhance the professionalism and functionality of the codebase, providing a more robust and efficient system for managing and running assistants.
+``` 
+
 ### How to use
 
 First you create the assistant, then you create the thread, when you have a thread you can add messages to it, when you
@@ -53,6 +64,11 @@ Console.WriteLine(response);
 // You should dispose of the aiService when you are no longer using it.
 aiService.Dispose();
 
+**_New in 1.0.2:_**
+// You can now retrieve assistant properties because the CreateAssistant method now returns the assistant object.
+// Example:
+var assistant_id = assistant.id;
+
 ``` 
 Each object returns an error message if it fails.
 
@@ -83,9 +99,7 @@ public class OpenAiModel
 
 }
 ``` 
-### Changelog 1.0.1
-- Added _IDisposable_ to _OpenAiService_
-- Fixed sending parameters with the assistant
+
 
 ### ToDo
 
