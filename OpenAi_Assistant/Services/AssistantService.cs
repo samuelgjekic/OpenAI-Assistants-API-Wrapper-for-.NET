@@ -6,7 +6,7 @@ using System.Text;
 
 namespace OpenAi_Assistant.Services
 {
-    internal class AssistantService
+    public class AssistantService
     {
         private readonly HttpClient httpClient;
         public AssistantService(HttpClient _httpClient) 
@@ -14,10 +14,15 @@ namespace OpenAi_Assistant.Services
           httpClient = _httpClient;
         }
 
+        ///<summary>
+        /// Creates the assistant using the AssistantService
+        ///<param name="model">The AssistantModel to be created</param>
+        ///<returns>The Assistant Object</returns>
+        ///</summary>
         public async Task<AssistantModel> CreateAssistant(AssistantModel model)
         {
-            
-                var requestUri = "https://api.openai.com/v1/assistants";
+           
+            var requestUri = "https://api.openai.com/v1/assistants";
                 var requestBody = new
                 {
                     name = model.name,
@@ -45,10 +50,16 @@ namespace OpenAi_Assistant.Services
                 return model;     
         }
 
+        ///<summary>
+        /// Modifies assistant with given AssistantModel. Note that ID is given by OpenAI.
+        ///<param name="model">The AssistantModel with modified values</param>
+        ///<returns>The AssistantObject with the new assistant properties</returns>
+        ///</summary>
         public async Task<AssistantModel> ModifyAssistant(AssistantModel model)
         {
 
-            // Method not used in library yet, but will be used soon in a future update. 
+        
+
             var requestUri = $"https://api.openai.com/v1/assistants/{model.id}";
             var requestBody = new
             {
@@ -73,6 +84,37 @@ namespace OpenAi_Assistant.Services
             }
 
             return model;
+        }
+        ///<summary>
+        /// Delete assistant with given assistant id
+        ///<param name="model">The AssistantModel to be deleted</param>
+        ///<returns>The AssistantObject with the assistant properties</returns>
+        ///</summary>
+
+
+        public async Task<AssistantModel> DeleteAssistant(AssistantModel model)
+        {
+
+          
+
+            var requestUri = $"https://api.openai.com/v1/assistants/{model.id}";
+            var response = await httpClient.DeleteAsync(requestUri);
+            if (response.IsSuccessStatusCode)
+            {
+                model.id = null;
+                model.created_at = null;
+                model.tool = null;
+                model.name  = null;
+                model.instructions = null;
+                model.apimodel = null;
+                model.description  = null;
+                return model;
+            }
+            else
+            {
+                return model;
+            }
+
         }
     }
 }

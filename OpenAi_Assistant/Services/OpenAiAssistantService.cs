@@ -7,22 +7,35 @@ using System.Xml.Linq;
 
 namespace OpenAi_Assistant.Services
 {
+    /// <summary>
+    ///     Service to make use of the assistant API provided by OpenAI. See documentation for more information.
+    ///     Related guide: <a href="https://github.com/samuelgjekic/OpenAI-Assistants-API-Wrapper-for-.NET">Documentation</a>
+    /// </summary>
     public partial class OpenAiAssistantService : IOpenAiAssistantService ,IDisposable
     {
 
 
-        /// <summary>
-        ///     Service to make use of the assistant API provided by OpenAI.
-        ///     Related guide: <a href="https://platform.openai.com/docs/assistants/">OpenAI Assistants API</a>
-        /// </summary>
+       
         private string apiKey { get; set; }
         private readonly HttpClient httpClient;
         private readonly bool _disposeHttpClient; // <<<<< needs to be implemented.
-        public AssistantModel assistant { get; set; } // the id of the assistant
-   
 
+
+        // We create the objects needed for the assistant
+        private AssistantModel assistantModel { get; set; } 
+        public  AssistantService assistant { get; set; }
+
+        public ThreadModel currentThread { get; set; }
+
+
+
+        ///<summary>
+        /// Creates the assistant using the given parameters.
+        ///<param name="apikey">The OpenAI Api key to be used, its better to load it from env variables</param>
+        ///</summary>
         public OpenAiAssistantService(string ApiKey)
         {
+            
             try
             {
                 apiKey = ApiKey;
@@ -37,15 +50,21 @@ namespace OpenAi_Assistant.Services
             }
         }
 
-  
+        ///<summary>
+        /// Creates the assistant using the given parameters.
+        ///<param name="apimodel">The OpenAI model to be used</param>
+        ///<param name="name">The name of the assistant</param>
+        ///<param name="tool">The tool to be used, ex: ToolsModel.ai_tool</param>
+        ///<param name="instructions">The instructions for the assistant</param>
+        ///<returns>The AssistantObject with the assistant properties</returns>
+        ///</summary>
         public async Task<AssistantModel> CreateAssistant(string apimodel,string name,string tool, string instructions) 
         {
+           
 
-            /// <summary>
-            ///     Creates the ai assistant with the given parameters.
-            /// </summary>
-            /// 
-            assistant = new AssistantModel()
+
+
+            assistantModel = new AssistantModel()
             {
                 name = name,
                 tool = tool,
@@ -53,17 +72,20 @@ namespace OpenAi_Assistant.Services
                 apimodel = apimodel,
 
             };
-            AssistantService assistantService = new AssistantService(httpClient);
-            assistant = await assistantService.CreateAssistant(assistant);
-            return assistant;
+            assistant = new AssistantService(httpClient);
+            assistantModel = await assistant.CreateAssistant(assistantModel);
+            return assistantModel;
         }
 
-        /// <summary>
-        ///     Method to create a new thread.
-        /// </summary>
-        public ThreadModel currentThread { get; set; } // The current thread object
+
+        ///<summary>
+        /// Create the thread required to run the assistant
+        ///<returns>Returns the thread id</returns>
+        ///</summary>
         public async Task<string> CreateThread()
         {
+
+         
             try
             {        
                 ThreadService threadService = new ThreadService(httpClient);
@@ -77,10 +99,7 @@ namespace OpenAi_Assistant.Services
 
         }
 
-        /// <summary>
-        ///     Method to send and recieve messages from/to thread.
-        /// </summary>
-        ///
+     
         public async Task<string> SendMsgToThread(string msg,string role)
         {
             MessageModel messageModel= new MessageModel();
@@ -92,12 +111,16 @@ namespace OpenAi_Assistant.Services
             }
             return "Error: Could not add new user message to thread";
         }
+        ///<summary>
+        /// Run the thread to get response from assistant
+        ///</summary>
         public async Task<string> RunAssistant()
         {
+         
             try
             {
                 RunService runService = new RunService(httpClient);
-                var response = await runService.CreateRun(currentThread, assistant.id); // Run the assistant with given thread & assistant id.
+                var response = await runService.CreateRun(currentThread, assistantModel.id); // Run the assistant with given thread & assistant id.
                 if (response == true)
                 {
                     return "Successfully completed run operation.";
@@ -111,18 +134,25 @@ namespace OpenAi_Assistant.Services
                 return "Error:" + RunAssistantError.Message; // If assistant exception return the exception message. 
             }
         }
-
+        ///<summary>
+        /// Get the response from the assistant
+        /// <returns>Response from the assistant as string</returns>
+        ///</summary>
         public async Task<string> GetResponseFromAssistant()
         {
+       
             MessageService messageService = new MessageService(httpClient);
             var response = await messageService.GetLatestResponse(currentThread);
             return response;
         }
-        
-        
+
+        ///<summary>
+        /// Dispose the assistant service when you are not using it anymore
+        ///</summary>
         public void Dispose()
         {
-            httpClient.Dispose();   // Dispose the http client when finished. 
+        
+            httpClient.Dispose();
         }
     }
 }

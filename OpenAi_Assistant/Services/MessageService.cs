@@ -18,7 +18,6 @@ namespace OpenAi_Assistant.Services
             AllMessages = new List<MessageModel>();
         }
 
-        // Method to create a new message and add it to the current thread
         public async Task<MessageModel> CreateMsg(string msg,string role,ThreadModel _currentThread)
         {
             ThreadModel currentThread = _currentThread;
