@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using OpenAi_Assistant.Models;
 using OpenAi_Assistant.Interfaces;
-using System.Runtime.CompilerServices;
 using System.Text;
 
 

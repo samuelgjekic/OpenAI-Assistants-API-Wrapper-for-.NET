@@ -14,15 +14,16 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>open ai, ai assistant, chatgpt ,wrapper, open ai assistant</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <AssemblyVersion>1.0.1.1</AssemblyVersion>
-    <FileVersion>1.0.1.1</FileVersion>
-    <PackageReleaseNotes>Fixed bug where assistant did not recieve correct parameters.</PackageReleaseNotes>
+    <AssemblyVersion>1.0.2.0</AssemblyVersion>
+    <FileVersion>1.0.2.0</FileVersion>
+    <PackageReleaseNotes>Added AssistantService and AssistantModel to store the 
+assistant properties and retrieve them for modification or run operations</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\..\..\..\Downloads\OpenAI-Assistants-API-Wrapper-for-.NET-master\OpenAI-Assistants-API-Wrapper-for-.NET-master\README.md">
+    <None Include="..\..\..\..\Documents\README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
