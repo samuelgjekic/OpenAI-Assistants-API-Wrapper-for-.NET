@@ -1,15 +1,16 @@
 ﻿using Newtonsoft.Json;
 using OpenAi_Assistant.Models;
-using OpenAi_Assistant.OpenAiAssistant.Models;
+using OpenAi_Assistant.Interfaces;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 
 namespace OpenAi_Assistant.OpenAiAssistant.Services
 {
-    internal class RunService
+    internal class RunService : IRunService
+
     {
         private readonly HttpClient httpClient;
-        public RunObjectModel RunObject;
         public RunService(HttpClient _httpClient)
         {
          httpClient = _httpClient;
