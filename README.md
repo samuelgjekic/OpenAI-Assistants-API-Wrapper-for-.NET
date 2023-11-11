@@ -9,11 +9,11 @@ https://platform.openai.com/docs/assistants/overview
 
 **Install package:**
 ```
-dotnet add package OpenAi_Assistant --version 1.0.1
+dotnet add package OpenAi_Assistant --version 1.0.2
 ``` 
 
 ```
-NuGet\Install-Package OpenAi_Assistant -Version 1.0.1
+NuGet\Install-Package OpenAi_Assistant -Version 1.0.2
 ``` 
 
 ### Information
