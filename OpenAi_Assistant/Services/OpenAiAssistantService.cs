@@ -77,6 +77,20 @@ namespace OpenAi_Assistant.Services
             return assistantModel;
         }
 
+        ///<summary>
+        /// Get existing assistant using the assistant id.
+        ///<param name="assistant_id">The ID of the assistant</param>
+        ///<returns>The AssistantObject with the assistant properties</returns>
+        ///</summary>
+        public async Task<AssistantModel> GetAssistantById(string assistant_id)
+        {
+            assistant = new AssistantService(httpClient);
+            assistantModel = new AssistantModel();
+            assistantModel = await assistant.GetAssistantById(assistant_id); // get the assistant by id
+            return assistantModel;
+
+        }
+
 
         ///<summary>
         /// Create the thread required to run the assistant

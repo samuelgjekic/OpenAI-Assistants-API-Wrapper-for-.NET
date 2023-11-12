@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using OpenAi_Assistant.Interfaces;
 using OpenAi_Assistant.Models;
 using System.Reflection;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Text;
 
 namespace OpenAi_Assistant.Services
 {
-    public class AssistantService
+    public class AssistantService : IAssistantService
     {
         private readonly HttpClient httpClient;
         public AssistantService(HttpClient _httpClient) 
@@ -74,16 +75,13 @@ namespace OpenAi_Assistant.Services
             var responseObject = JsonConvert.DeserializeObject<dynamic>(responseContent);
             if (response.IsSuccessStatusCode)
             {
-                // Parse the response to get the assistants id if it changed
-                model.id = responseObject?.id;
-                model.created_at = responseObject?.created_at;
+                return model;
             }
             else
             {
                 return null;
             }
 
-            return model;
         }
         ///<summary>
         /// Delete assistant with given assistant id
@@ -113,6 +111,32 @@ namespace OpenAi_Assistant.Services
             else
             {
                 return model;
+            }
+
+        }
+
+        public async Task<AssistantModel> GetAssistantById(string assistant_id)
+        {
+            var requestUri = $"https://api.openai.com/v1/assistants/{assistant_id}";
+            var response = await httpClient.GetAsync(requestUri);
+            var responseContent = await response.Content.ReadAsStringAsync();
+            var responseObject = JsonConvert.DeserializeObject<dynamic>(responseContent);
+
+            if (response.IsSuccessStatusCode)
+            {
+                AssistantModel model = new AssistantModel()
+                {
+                    id = responseObject?.id,
+                    created_at = responseObject?.created_at,
+                    instructions = responseObject?.instructions,
+                    name = responseObject?.name,
+                    apimodel = responseObject?.model,
+                    tool = responseObject?.tools[0]?.type,
+                };
+                return model;
+            } else
+            {
+                return null;
             }
 
         }
