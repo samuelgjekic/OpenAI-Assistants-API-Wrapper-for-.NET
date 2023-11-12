@@ -22,17 +22,22 @@ Keep in mind the API is still in beta, and this wrapper is far from finished.
 
 - **Accepting Contributions**: I welcome contributions from the community to enhance and expand the functionality of this wrapper. Whether you want to add new features, improve existing code, or fix bugs, your contributions are highly appreciated!
 
+### Changelogs
+```
+
+### Changelog 1.0.4
+
+- Added support for fetching existing assistant from the api using assistant id
 
 ### Changelog 1.0.3
-```
+
 - Added methods to modify or delete existing assistant
 - Fixed some code issues
 
-``` 
+ 
 
 ### Changelog 1.0.2
 
-```
 - Added AssistantService to handle interactions with the OpenAI Assistants API.
 - Introduced AssistantModel object to represent the properties of an assistant.
 - Implemented IRunService interface to define the necessary functionalities for running the assistant.
@@ -53,6 +58,9 @@ var aiService = new OpenAiAssistantService("YOUR-API-KEY");
 // Create the assistant by passing the parameters, use models from OpenAiModel.<SelectedModel>
 // You can pass instructions to the assistant, for example "You are a math tutor".
 var assistant = await aiService.CreateAssistant(OpenAiModel.Gpt_3_5_Turbo,"Math tutor", ToolsModel.Code_Interpreter,"You are a math tutor");
+
+// If you want to get existing assistant from the api, you can do so by using the assistant id as parameter.
+var assistant = await aiServices.GetAssistantById("asst_MON1TnRldQ3JaDCae08QFx20");
 
 // Create the thread that the assistant will run on
 await aiService.CreateThread();
