@@ -11,6 +11,7 @@ namespace OpenAi_Assistant.Interfaces
 
         Task<string> SendMsgToThread(string msg,string role);
 
+        Task<AssistantModel> GetAssistantById(string assistant_id);
 
     }
 }

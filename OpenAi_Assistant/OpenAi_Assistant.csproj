@@ -12,18 +12,17 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/samuelgjekic/OpenAI-Assistants-API-Wrapper-for-.NET</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageTags>open ai, ai assistant, chatgpt ,wrapper, open ai assistant</PackageTags>
+    <PackageTags>open ai, ai assistant, chatgpt ,wrapper, open ai assistant,ai chatbot</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <AssemblyVersion>1.0.2.0</AssemblyVersion>
-    <FileVersion>1.0.2.0</FileVersion>
-    <PackageReleaseNotes>Added AssistantService and AssistantModel to store the 
-assistant properties and retrieve them for modification or run operations</PackageReleaseNotes>
+    <AssemblyVersion>1.0.4.0</AssemblyVersion>
+    <FileVersion>1.0.4.0</FileVersion>
+    <PackageReleaseNotes>Added method to fetch existing assistant from the api.</PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-    <Version>1.0.2</Version>
+    <Version>1.0.4</Version>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\..\..\..\Documents\README.md">
+    <None Include="..\..\..\..\Music\README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
